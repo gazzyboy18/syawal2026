@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eid Mubarak</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+      background: url("eid_background2.jpg");
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 60%);
+      pointer-events: none;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      max-width: 500px;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* Moving stars background */
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      width: 2000px;
+      height: 2000px;
+      background-repeat: repeat;
+      background-image: radial-gradient(2px 2px at 20px 20px, #fff, transparent),
+                        radial-gradient(2px 2px at 100px 150px, #fff, transparent),
+                        radial-gradient(2px 2px at 200px 80px, #fff, transparent);
+      opacity: 0.4;
+      animation: moveStars 60s linear infinite;
+      pointer-events: none;
+    }
+
+    .stars2 {
+      animation-duration: 90s;
+      opacity: 0.25;
+    }
+
+    .stars3 {
+      animation-duration: 120s;
+      opacity: 0.15;
+    }
+
+    @keyframes moveStars {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-500px, -500px, 0); }
+    }
+
+    /* Slideshow */
+    .slideshow {
+  width: 90%;
+  max-width: 350px;
+  aspect-ratio: 16 / 10;
+      margin: 0 auto 1.5rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+    }
+
+    /* Button */
+    button {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #ffd369;
+      color: #222;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(0,0,0,0.6);
+    }
+
+    .note {
+      font-size: 0.85rem;
+      margin-top: 0.6rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Moving stars layers -->
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+  <div class="overlay"></div>
+
+  <div class="container">
+    <h1>Eid Mubarak 🌙</h1>
+    <p>
+      May this Eid bring you peace, joy, and blessings for you and your loved ones.
+    </p>
+
+    <!-- Slideshow with moving pictures -->
+    <div class="slideshow">
+      <!-- Replace these src values with your own image URLs or local files -->
+      <img src="eid_1.jpg" class="active" alt="Lanterns" />
+      <img src="eid_2.jpg" alt="Moon and mosque" />
+      <img src="eid_3.jpg" alt="Lights" />
+      <img src="eid_4.jpg" alt="Lights" />
+      <img src="eid_5.jpg" alt="Lights" />
+      <img src="eid_6.jpg" alt="eid_6" />
+      <img src="eid_7.jpg" alt="Lights" />
+      <img src="eid_8.jpg" alt="Lights" />
+      <img src="eid_9.jpg" alt="Lights" />
+      <img src="eid_10.jpg" alt="eid_10"/>
+    </div>
+
+    <!-- Music controls -->
+    <button id="musicToggle">Play Music</button>
+    <div class="note">Click the button to play or pause the Eid melody.</div>
+
+    <!-- Background music (replace src with your own file if you want) -->
+    <audio id="bgMusic" loop>
+      <!-- You can replace this with a local file, e.g. src="eid-song.mp3" -->
+      <source src="Maher_Zain_Syawal_2026.mp3" type="audio/wav" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script>
+    // Simple slideshow logic
+    const slides = document.querySelectorAll('.slideshow img');
+    let current = 0;
+
+    function showNextSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 3000); // change image every 3 seconds
+
+    // Music toggle
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggle');
+    let isPlaying = false;
+
+    btn.addEventListener('click', () => {
+      if (!isPlaying) {
+        music.play();
+        isPlaying = true;
+        btn.textContent = 'Pause Music';
+      } else {
+        music.pause();
+        isPlaying = false;
+        btn.textContent = 'Play Music';
+      }
+    });
+  </script>
+</body>
+</html>
